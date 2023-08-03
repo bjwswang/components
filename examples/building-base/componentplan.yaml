@@ -1,0 +1,18 @@
+apiVersion: core.kubebb.k8s.com.cn/v1alpha1
+kind: ComponentPlan
+metadata:
+  name: building-base
+  namespace: u4a-system
+spec:
+  approved: true
+  name: building-base
+  version: 0.1.3
+  wait: true
+  override:
+    valuesFrom:
+      - kind: ConfigMap
+        name: kubebbcm
+        valuesKey: "values.yaml"
+  component:
+    name: kubebb.building-base
+    namespace: kubebb-system

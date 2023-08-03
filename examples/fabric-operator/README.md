@@ -96,4 +96,3 @@ spec:
     name: kubebb.fabric-operator
     namespace: kubebb-system
 ```
-
