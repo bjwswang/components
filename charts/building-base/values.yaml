@@ -5,14 +5,14 @@
 # You must check and update the value of each variable below
 deploymentConfig:
   # bffServer info
-  bffHost: &bffHost portal.<replaced-ingress-nginx-ip>.nip.io
+  bffHost: &bffHost portal.172.190.30.163.nip.io
   clientName: &clientName bff-client
   clientId: &clientId bff-client
   clientSecret: &clientSecret 61324af0-1234-4f61-b110-ef57013267d6
   # BFF server info
   # The host Kubernetes cluster with OIDC enabled or use kube-oidc-proxy in front of k8s-apiserver
   # kube-oidc-proxy will be installed by default
-  hostK8sApiWithOidc: &hostK8sApiWithOidc https://k8s.<replaced-ingress-nginx-ip>.nip.io
+  hostK8sApiWithOidc: &hostK8sApiWithOidc https://k8s.172.190.30.163.nip.io
   # Enable https for bff server
   bffHttpsEnabled: true
 
@@ -24,7 +24,7 @@ issuerConfig:
   certificate:
     # MUST update this value
     oidcIPs: &oidcIPs
-      - <replaced-ingress-nginx-ip>
+      - 172.190.30.163
     # MUST update this value
     dnsNames: &dnsNames
       - *bffHost
@@ -34,7 +34,7 @@ issuerConfig:
       - kube-oidc-proxy
       - kube-oidc-proxy.u4a-system
       - kube-oidc-proxy.u4a-system.svc
-      - k8s.<replaced-ingress-nginx-ip>.nip.io
+      - k8s.172.190.30.163.nip.io
   spec:
     # Use selfSigned or specified CA(such as CA from kubernetes)
     selfSigned: {}
@@ -85,7 +85,7 @@ oidcServer:
     hostAliases:
       - hostnames:
           - *bffHost
-        ip: <replaced-ingress-nginx-ip>
+        ip: 172.190.30.163
   # only enable for debug purpose
   debug: false
 
@@ -103,7 +103,7 @@ bffServer:
     hostAliases:
       - hostnames:
           - *bffHost
-        ip: <replaced-ingress-nginx-ip>
+        ip: 172.190.30.163
 
 # Required: the host Kubernetes cluster with OIDC enabled
 # or use kube-oidc-proxy in front of k8s-apiserver
@@ -121,16 +121,16 @@ addon-component:
     image: kubebb/capsule-ce:v0.1.2-20221122
   kubeOidcProxy:
     image: kubebb/kube-oidc-proxy-ce:v0.3.0-20221008
-    issuerUrl: https://portal.<replaced-ingress-nginx-ip>.nip.io/oidc
+    issuerUrl: https://portal.172.190.30.163.nip.io/oidc
     clientId: *clientId
     ingress:
       enabled: true
       name: *ingressName
-      host: k8s.<replaced-ingress-nginx-ip>.nip.io
+      host: k8s.172.190.30.163.nip.io
     certificate:
       ipAddresses:
         # MUST update this value to the host ip of kube-oidc-proxy
-        - <replaced-ingress-nginx-ip>
+        - 172.190.30.163
       dnsNames:
         - kube-oidc-proxy
         - kube-oidc-proxy.u4a-system
@@ -140,9 +140,9 @@ addon-component:
       hostAliases:
         - hostnames:
             # MUST update this value
-            - portal.<replaced-ingress-nginx-ip>.nip.io
+            - portal.172.190.30.163.nip.io
           # MUST update this value
-          ip: <replaced-ingress-nginx-ip>
+          ip: 172.190.30.163
 
 cluster-component:
   enabled: false
